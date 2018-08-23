@@ -1,31 +1,38 @@
 package br.com.springionicbackend.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.springionicbackend.domains.Categoria;
+import br.com.springionicbackend.services.CategoriaService;
 
 @RestController
 @RequestMapping(value= "categorias")
 public class CategoriaResource {
 	
+	@Autowired
+	private CategoriaService service;
+	
 	@GetMapping
-	public List<Categoria> listar() {
+	public ResponseEntity<?> listar() {
+	 
+		List<Categoria> categorias = service.buscaTodas();
+		return ResponseEntity.ok().body(categorias);
 		
-		Categoria c1 = new Categoria(1L, "Informática");
-		Categoria c2 = new Categoria(2L, "Escritório");
-
-		List<Categoria> categorias = new ArrayList<>();
+	}
+	@GetMapping(value="/{id}")
+	public ResponseEntity<?> listaCategoria(@PathVariable Long id){
 		
-		categorias.add(c1);
-		categorias.add(c2);
-		
-		return categorias;
-
+		 Categoria categoria = service.buscaPorId(id);
+		 return ResponseEntity
+				.ok()
+				.body(categoria);
 		
 		
 	}
