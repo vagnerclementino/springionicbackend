@@ -9,6 +9,6 @@ public interface CategoriaService {
 	
 	List<Categoria> buscaTodas();
 	
-	Categoria buscaPorId(Long id);
+	Categoria find(Long id);
 
 }
