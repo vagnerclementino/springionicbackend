@@ -1,5 +1,6 @@
 package br.com.springionicbackend;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,20 +8,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
-
 import br.com.springionicbackend.domains.Categoria;
 import br.com.springionicbackend.domains.Cidade;
 import br.com.springionicbackend.domains.Cliente;
 import br.com.springionicbackend.domains.Endereco;
 import br.com.springionicbackend.domains.Estado;
+import br.com.springionicbackend.domains.Pagamento;
+import br.com.springionicbackend.domains.PagamentoComBoleto;
+import br.com.springionicbackend.domains.PagamentoComCartao;
+import br.com.springionicbackend.domains.Pedido;
 import br.com.springionicbackend.domains.Produto;
+import br.com.springionicbackend.domains.enums.EstadoPagamento;
 import br.com.springionicbackend.domains.enums.TipoCliente;
 import br.com.springionicbackend.repositories.CategoriaRepository;
 import br.com.springionicbackend.repositories.CidadeRepository;
 import br.com.springionicbackend.repositories.ClienteRepository;
 import br.com.springionicbackend.repositories.EnderecoRepository;
 import br.com.springionicbackend.repositories.EstadoRepository;
+import br.com.springionicbackend.repositories.PagamentoRepository;
+import br.com.springionicbackend.repositories.PedidoRepository;
 import br.com.springionicbackend.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +48,12 @@ public class SpringIonicBackendApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIonicBackendApplication.class, args);
@@ -82,6 +94,15 @@ public class SpringIonicBackendApplication implements CommandLineRunner {
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));		
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e2);
+		
+		Pagamento pag1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO,ped1,6);
+		Pagamento pag2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+
+		
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
@@ -91,6 +112,11 @@ public class SpringIonicBackendApplication implements CommandLineRunner {
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pag1,pag2));
+		
+		
 		
 		
 		
