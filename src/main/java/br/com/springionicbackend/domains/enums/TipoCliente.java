@@ -32,7 +32,7 @@ public enum TipoCliente {
 		this.descricao = descricao;
 	}
 	
-	public static TipoCliente toEnum(Integer codigo) throws IllegalArgumentException {
+	public static TipoCliente toEnum(Integer codigo) {
 
 		TipoCliente tipoCliente = null;
 
