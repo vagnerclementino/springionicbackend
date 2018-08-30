@@ -7,6 +7,8 @@ import br.com.springionicbackend.domains.enums.EstadoPagamento;
 @Entity(name="PAGAMENTO_COM_CARTAO")
 public class PagamentoComCartao extends Pagamento {
 	
+	
+	private static final long serialVersionUID = 1L;
 	private Integer numeroDeParcelas;
 
 	public PagamentoComCartao() {
