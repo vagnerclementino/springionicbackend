@@ -1,4 +1,4 @@
-package br.com.springionicbackend.services;
+package br.com.springionicbackend.services.exceptions;
 
 public class ResourceNotFound extends RuntimeException {
 

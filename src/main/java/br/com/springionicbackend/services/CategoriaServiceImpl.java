@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.springionicbackend.domains.Categoria;
 import br.com.springionicbackend.repositories.CategoriaRepository;
+import br.com.springionicbackend.services.exceptions.ResourceNotFound;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
@@ -23,7 +24,8 @@ public class CategoriaServiceImpl implements CategoriaService {
 	@Override
 	public Categoria find(Long id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ResourceNotFound(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 }

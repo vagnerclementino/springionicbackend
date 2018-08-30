@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.springionicbackend.domains.Cliente;
 import br.com.springionicbackend.repositories.ClienteRepository;
+import br.com.springionicbackend.services.exceptions.ResourceNotFound;
 
 @Service
 public class 
